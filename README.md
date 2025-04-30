@@ -1,101 +1,97 @@
+YOLO Segmentation Project
+This project provides a Python implementation of object detection and segmentation using the YOLO (You Only Look Once) model from the Ultralytics library. The YOLO_SEGMENTATION class enables easy integration of YOLO-based segmentation into your applications, returning bounding boxes, class IDs, confidence scores, and segmentation contours for objects detected in an input image.
+Features
 
----
+Object Detection: Detects objects in images with bounding box coordinates.
+Instance Segmentation: Extracts pixel-level segmentation contours for detected objects.
+Custom Model Support: Load any YOLO model by specifying the path to the model file.
+Easy-to-Use Interface: Simple class-based API for detection and segmentation tasks.
 
-# 🧠 AI Safety & Vision Projects Collection
+Requirements
 
-This repository contains multiple computer vision projects using **YOLOv5 and YOLOv8**, including:
+Python 3.7+
+Libraries:
+ultralytics
+numpy
+opencv-python (optional, for image loading/processing)
 
-1. 🦺 **Helmet & Vest Detection**
-2. 🤟 **Sign Language Recognition**
-3. 🟦 **YOLOv8 Segmentation Wrapper**
 
----
 
-## 📁 Repository Structure
+Install the required dependencies using:
+pip install ultralytics numpy opencv-python
 
-```
-📦 AI-Safety-Vision-Projects/
-├── Helmet_Vest_Detection/
-│   └── vest and helmet.ipynb
-├── Sign_Language_Detection/
-│   └── Sign_Language_Detection.ipynb
-├── Segmentation_Module/
-│   └── yolo_segmentation.py
-└── README.md
-```
+Installation
 
----
+Clone the repository:git clone https://github.com/your-username/yolo-segmentation.git
+cd yolo-segmentation
 
-## 1️⃣ Helmet & Vest Detection
 
-Detects construction workers and identifies whether they’re wearing **helmets and safety vests** using a custom-trained YOLOv5 model.
+Install the dependencies:pip install -r requirements.txt
 
-**Features:**
-- Detects `Helmet`, `Vest`, and `Worker`
-- Identifies safety violations and saves violator snapshots
-- Processes and annotates video (`output.mp4`)
 
-**Usage:**
-- Place video and model in the correct path
-- Run `vest and helmet.ipynb`
 
----
+Usage
 
-## 2️⃣ Sign Language Detection
-
-Recognizes **A-Z alphabet signs** from hand gestures using YOLOv8.
-
-**Features:**
-- Uses YOLOv8 for high-accuracy detection
-- Trained on hand sign datasets
-- Real-time or image-based predictions
-
-**Run With:**
-```bash
-pip install ultralytics==8.0.196
-```
-Open `Sign_Language_Detection.ipynb` and follow the steps.
-
----
-
-## 3️⃣ YOLOv8 Segmentation Module
-
-A reusable Python class for performing **object detection and segmentation** with YOLOv8.
-
-**`yolo_segmentation.py`**:
-```python
+Prepare a YOLO Model: Download a pre-trained YOLO model (e.g., yolov8n-seg.pt) from the Ultralytics YOLOv8 repository or use your custom-trained model.
+Run the Segmentation:import cv2
 from yolo_segmentation import YOLO_SEGMENTATION
 
-model = YOLO_SEGMENTATION("path_to_model.pt")
-bboxes, class_ids, scores, masks = model.detection(image)
-```
+# Initialize the model
+model_path = "path/to/your/model.pt"
+yolo_seg = YOLO_SEGMENTATION(model_path)
 
-**Returns**:
-- Bounding boxes
-- Class IDs
-- Confidence scores
-- Polygon masks (in pixel coordinates)
+# Load an image
+image = cv2.imread("path/to/your/image.jpg")
 
----
+# Perform detection and segmentation
+bboxes, classes_id, scores, segmentation_contours = yolo_seg.detection(image)
 
-## 🧰 Installation
+# Process results
+for bbox, cls_id, score, contour in zip(bboxes, classes_id, scores, segmentation_contours):
+    print(f"Bounding Box: {bbox}, Class ID: {cls_id}, Score: {score}")
+    # Optionally, draw contours on the image
+    cv2.polylines(image, [contour], isClosed=True, color=(0, 255, 0), thickness=2)
 
-Install common dependencies:
+# Save or display the result
+cv2.imwrite("output.jpg", image)
 
-```bash
-pip install ultralytics opencv-python numpy
-```
 
----
+Output: The detection method returns:
+bboxes: Bounding box coordinates (x_min, y_min, x_max, y_max) for each detected object.
+classes_id: Class IDs for detected objects.
+scores: Confidence scores for each detection.
+segmentation_contours: List of segmentation contours (pixel coordinates) for each object.
 
-## 🤝 Contributing
 
-Feel free to fork, open issues, or submit pull requests if you'd like to contribute or improve the models/modules.
 
----
+Example
+An example script (example.py) is provided in the repository to demonstrate how to use the YOLO_SEGMENTATION class. To run it:
+python example.py
 
-## 📝 License
+Ensure you have a valid model file and an input image specified in the script.
+Project Structure
+yolo-segmentation/
+│
+├── yolo_segmentation.py   # Core YOLO segmentation class
+├── example.py             # Example usage script
+├── requirements.txt       # Required dependencies
+└── README.md              # This file
 
-These projects are released for educational and non-commercial use. Contact the author for commercial licensing.
+Contributing
+Contributions are welcome! Please follow these steps:
 
----
+Fork the repository.
+Create a new branch (git checkout -b feature/your-feature).
+Commit your changes (git commit -m "Add your feature").
+Push to the branch (git push origin feature/your-feature).
+Open a pull request.
+
+License
+This project is licensed under the MIT License. See the LICENSE file for details.
+Acknowledgments
+
+Ultralytics YOLOv8 for the YOLO implementation.
+The open-source community for providing invaluable tools and resources.
+
+Contact
+For questions or issues, please open an issue on GitHub or contact saiedhassaan2@gmail.com
