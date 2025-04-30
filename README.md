@@ -1,4 +1,4 @@
-##YOLO Segmentation Project
+## YOLO Segmentation Project
 This project provides a Python implementation of object detection and segmentation using the YOLO (You Only Look Once) model from the Ultralytics library. The YOLO_SEGMENTATION class enables easy integration of YOLO-based segmentation into your applications, returning bounding boxes, class IDs, confidence scores, and segmentation contours for objects detected in an input image.
 
 ## Features
